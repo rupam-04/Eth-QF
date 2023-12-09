@@ -18,26 +18,26 @@ contract Funding is GetProject {
         projects[_projectId].unpaid += msg.value;
         projects[_projectId].contributors++;
 
-        if (isMatchingRound) {
-            projects[_projectId].matchingContributors++;
-            uint256 sq = (sqrt(msg.value * 10000)) / 100;
-            projects[_projectId].rootSum += sq;
-        }
+        // if (isMatchingRound) {
+        //     projects[_projectId].matchingContributors++;
+        //     uint256 sq = (sqrt(msg.value * 10000)) / 100;
+        //     projects[_projectId].rootSum += sq;
+        // }
     }
 
-    function donateToMatchingFund() public payable {
-        matchingFund += msg.value;
-        if (sponsorToDonation[msg.sender] != 0) {
-            sponsorToDonation[msg.sender] += msg.value;
-        } else {
-            sponsorToDonation[msg.sender] = msg.value;
-            sponsors.push(msg.sender);
-        }
+    // function donateToMatchingFund() public payable {
+    //     matchingFund += msg.value;
+    //     if (sponsorToDonation[msg.sender] != 0) {
+    //         sponsorToDonation[msg.sender] += msg.value;
+    //     } else {
+    //         sponsorToDonation[msg.sender] = msg.value;
+    //         sponsors.push(msg.sender);
+    //     }
 
-        if (matchingFund >= 15000000000000000000) {
-            isMatchingRound = true;
-        }
-    }
+    //     if (matchingFund >= 15000000000000000000) {
+    //         isMatchingRound = true;
+    //     }
+    // }
 
     function sqrt(uint256 x) public pure returns (uint256 y) {
         uint256 z = (x + 1) / 2;
@@ -50,24 +50,24 @@ contract Funding is GetProject {
         return y;
     }
 
-    function clrMatching() public {
-        uint256 totalMatchingSum;
-        for (uint256 i = 0; i < projects.length; i++) {
-            projects[i].matchingSum = projects[i].rootSum * projects[i].rootSum;
-            totalMatchingSum = totalMatchingSum + projects[i].matchingSum;
-        }
+    // function clrMatching() public {
+    //     uint256 totalMatchingSum;
+    //     for (uint256 i = 0; i < projects.length; i++) {
+    //         projects[i].matchingSum = projects[i].rootSum * projects[i].rootSum;
+    //         totalMatchingSum = totalMatchingSum + projects[i].matchingSum;
+    //     }
 
-        for (uint256 j = 0; j < projects.length; j++) {
-            projects[j].matchingShare =
-                (projects[j].matchingSum * matchingFund) /
-                totalMatchingSum;
-            projects[j].unpaid += projects[j].matchingShare;
-            projects[j].lifetimeMatching += projects[j].matchingShare;
-        }
+    //     for (uint256 j = 0; j < projects.length; j++) {
+    //         projects[j].matchingShare =
+    //             (projects[j].matchingSum * matchingFund) /
+    //             totalMatchingSum;
+    //         projects[j].unpaid += projects[j].matchingShare;
+    //         projects[j].lifetimeMatching += projects[j].matchingShare;
+    //     }
 
-        matchingFund = 0;
-        isMatchingRound = false;
-    }
+    //     matchingFund = 0;
+    //     isMatchingRound = false;
+    // }
 
     function getAllSponsors() public view returns (address[] memory) {
         return sponsors;
@@ -84,7 +84,7 @@ contract Funding is GetProject {
     function resetMatching(uint256 _projectId) public {
         projects[_projectId].rootSum = 0;
         projects[_projectId].matchingShare = 0;
-        projects[_projectId].matchingSum = 0;
+        // projects[_projectId].matchingSum = 0;
         projects[_projectId].unpaid = 0;
     }
 }

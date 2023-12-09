@@ -14,11 +14,11 @@ contract GetProject {
         string githubUser;
         string category;
         uint256 contributors;
-        uint256 matchingContributors;
+        // uint256 matchingContributors;
         uint256 rootSum;
-        uint256 matchingSum;
-        uint256 matchingShare;
-        uint256 lifetimeMatching;
+        // uint256 matchingSum;
+        // uint256 matchingShare;
+        // uint256 lifetimeMatching;
         uint256 unpaid;
     }
 
@@ -41,10 +41,6 @@ contract GetProject {
                 _pitch,
                 _username,
                 _category,
-                0,
-                0,
-                0,
-                0,
                 0,
                 0,
                 0
